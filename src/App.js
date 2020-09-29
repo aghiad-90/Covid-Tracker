@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@material-ui/core";
+import { Lines } from "react-preloaders";
 
 import "./App.css";
 import Header from "./components/header";
@@ -68,6 +69,7 @@ function App() {
 
   return (
     <div className="app">
+      <Lines color={"white"} background="#282B2E" />;
       <div className="app__left">
         <Header
           onchangeCountry={onchangeCountry}
