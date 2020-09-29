@@ -16,7 +16,12 @@ function Table({ countries }) {
           >
             <img
               src={item.countryInfo.flag}
-              style={{ height: 30, width: 30, borderRadius: 15 }}
+              style={{
+                height: 30,
+                width: 30,
+                borderRadius: 15,
+                objectFit: "cover",
+              }}
             />
             <td>{item.country}</td>
           </div>

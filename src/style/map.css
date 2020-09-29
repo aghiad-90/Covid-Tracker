@@ -15,10 +15,17 @@
 }
 
 .info_container {
-  /* width: 200px; */
+  width: 100%;
   background-color: white;
+  display: flex;
+  justify-content: "center";
 }
 .info__flag {
   height: 50px;
   width: 50px;
+  margin-right: 10px;
+}
+
+.leaflet-popup {
+  width: 200px !important;
 }

@@ -43,12 +43,19 @@ export const showData = (countries, casesType) =>
               backgroundImage: `url(${country.countryInfo.flag})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              height: 30,
+              width: 30,
+              borderRadius: "50%",
             }}
           />
-          <div>{country.country}</div>
-          <div>Cases: {numeral(country.cases).format("0,0")}</div>
-          <div>Recovered:{numeral(country.recovered).format("0,0")}</div>
-          <div>Deaths:{numeral(country.deaths).format("0,0")}</div>
+          <div>
+            <h2>{country.country}</h2>
+            <div>
+              <strong>
+                {casesType} : {numeral(country[casesType]).format("0,0")}
+              </strong>
+            </div>
+          </div>
         </div>
       </Popup>
     </Circle>
