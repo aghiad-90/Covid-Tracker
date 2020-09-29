@@ -1,0 +1,50 @@
+.infoBox {
+  display: flex;
+  width: 200px;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.infoBox__icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.infoBox__icon img {
+  height: 30px;
+}
+
+.infoBox__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoBox__title {
+  font-size: 12px !important;
+  color: #a1a5b1;
+}
+
+.infoBox__cases {
+  color: white;
+}
+
+.infoBox__details p {
+  color: #9da1ac;
+}
+.infoBox__total {
+  position: absolute;
+  top: 0;
+  right: 30px;
+}
+
+.infoBox__total p {
+  font-size: 10px;
+}

@@ -1,0 +1,55 @@
+import React from "react";
+import { Circle, Popup } from "react-leaflet";
+import numeral from "numeral";
+import "../style/map.css";
+
+const casesTypeColors = {
+  cases: {
+    hex: "#CC1034",
+    rgb: "rgb(204, 16, 52)",
+    half_op: "rgba(204, 16, 52, 0.5)",
+    multiplier: 800,
+  },
+  recovered: {
+    hex: "#7dd71d",
+    rgb: "rgb(125, 215, 29)",
+    half_op: "rgba(125, 215, 29, 0.5)",
+    multiplier: 1200,
+  },
+  deaths: {
+    hex: "#fb4443",
+    rgb: "rgb(251, 68, 67)",
+    half_op: "rgba(251, 68, 67, 0.5)",
+    multiplier: 2000,
+  },
+};
+
+export const showData = (countries, casesType) =>
+  countries.map((country) => (
+    <Circle
+      center={[country.countryInfo.lat, country.countryInfo.long]}
+      color={casesTypeColors[casesType].hex}
+      fillColor={casesTypeColors[casesType].hex}
+      fillOpacity={0.8}
+      radius={
+        Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
+      }
+    >
+      <Popup>
+        <div className="info_container">
+          <div
+            className="info__flag"
+            style={{
+              backgroundImage: `url(${country.countryInfo.flag})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <div>{country.country}</div>
+          <div>Cases: {numeral(country.cases).format("0,0")}</div>
+          <div>Recovered:{numeral(country.recovered).format("0,0")}</div>
+          <div>Deaths:{numeral(country.deaths).format("0,0")}</div>
+        </div>
+      </Popup>
+    </Circle>
+  ));

@@ -1,0 +1,24 @@
+.map {
+  height: 470px;
+  background-color: #282b2e;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-top: 16px;
+  box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* we should access the container added by leaflet and set the height */
+.map .leaflet-container {
+  height: 100%;
+  border-radius: 12px;
+  filter: opacity(80%);
+}
+
+.info_container {
+  /* width: 200px; */
+  background-color: white;
+}
+.info__flag {
+  height: 50px;
+  width: 50px;
+}

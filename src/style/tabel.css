@@ -1,0 +1,25 @@
+.MuiCardContent-root {
+  background-color: #222529;
+}
+
+.table {
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.575);
+}
+
+.table td {
+  padding: 0.8rem;
+}
+
+.table > tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .table > tr:nth-of-type(odd) {
+  background-color: #f3f2f8;
+} */

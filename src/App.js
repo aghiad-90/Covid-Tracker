@@ -1,24 +1,122 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent } from "@material-ui/core";
+
+import "./App.css";
+import Header from "./components/header";
+import InfoBox from "./components/InfoBox";
+import Map from "./components/Map";
+import Table from "./components/Table";
+import { sortData } from "./utilities/sort";
+import url from "./utilities/endpoints";
+import LineGraph from "./components/LineGraph";
+import "leaflet/dist/leaflet.css";
+import Cases from "./icons/virus.svg";
+import Recovered from "./icons/recovered.svg";
+import Deaths from "./icons/death.svg";
 
 function App() {
+  const [country, setCountry] = useState("WorldWide");
+  const [countryInfo, setCountryInfo] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 30.80746, lng: 10.4796 });
+  const [mapZoom, setMapZoom] = useState(2);
+  const [casesType, setCasesType] = useState("cases");
+  const [mapCountries, setMapCountries] = useState([]);
+  const CountryURL = url.countries;
+
+  const onchangeCountry = async (e) => {
+    const countryCode = e.target.value;
+    const url_all = url.all;
+    const url_q = `${url.countryCode}/${countryCode}`;
+    const target = countryCode === "worldWide" ? url_all : url_q;
+    await fetch(target)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountry(countryCode);
+        setCountryInfo(data);
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
+      });
+  };
+
+  useEffect(() => {
+    fetch(url.all)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const getdata = async () => {
+      fetch(CountryURL)
+        .then((response) => response.json())
+        .then((data) => {
+          const countriesApi = data.map((co) => ({
+            name: co.country,
+            value: co.countryInfo.iso2,
+          }));
+          setMapCountries(data);
+          setCountries(countriesApi);
+          const sorted = sortData(data);
+          setTableData(sorted);
+        });
+    };
+    getdata();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="app__left">
+        <Header
+          onchangeCountry={onchangeCountry}
+          country={country}
+          countries={countries}
+        />
+        <div className="app__status">
+          <InfoBox
+            title="Active"
+            cases={countryInfo.todayCases}
+            total={countryInfo.cases}
+            color="tomato"
+            icon={Cases}
+            onClick={(e) => setCasesType("cases")}
+          />
+          <InfoBox
+            title="Reacovery"
+            cases={countryInfo.todayRecovered}
+            total={countryInfo.recovered}
+            color="#5EC1AC"
+            icon={Recovered}
+            onClick={(e) => setCasesType("recovered")}
+          />
+          <InfoBox
+            title="Death"
+            cases={countryInfo.todayDeaths}
+            total={countryInfo.deaths}
+            color="#4F4E53"
+            icon={Deaths}
+            onClick={(e) => setCasesType("deaths")}
+          />
+        </div>
+        <Map
+          center={mapCenter}
+          zoom={mapZoom}
+          countries={mapCountries}
+          casesType={casesType}
+        />
+      </div>
+      <Card className="app__right">
+        <CardContent>
+          <h3 style={{ color: "white" }}>WorldWide Cases</h3>
+          <Table countries={tableData} />
+          <h3 style={{ marginBottom: 20, color: "white" }}>
+            Live Cases WorldWide
+          </h3>
+          <LineGraph TypeCases={casesType} />
+        </CardContent>
+      </Card>
     </div>
   );
 }
