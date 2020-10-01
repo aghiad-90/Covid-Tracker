@@ -6,7 +6,7 @@ function Table({ countries }) {
   return (
     <div className="table">
       {countries.map((item) => (
-        <tr key={item}>
+        <tr key={item.countryInfo.lat}>
           <div
             style={{
               display: "flex",

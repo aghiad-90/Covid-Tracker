@@ -5,7 +5,10 @@ import "../style/infoBox.css";
 
 function InfoBox({ title, cases, total, color, icon, ...props }) {
   return (
-    <div className="infoBox" onClick={props.onClick}>
+    <div
+      className={`infoBox && ${props.active && "infoBox--active"}`}
+      onClick={props.onClick}
+    >
       <div className="infoBox__content">
         <div className="infoBox__icon" style={{ backgroundColor: color }}>
           <img src={icon} />

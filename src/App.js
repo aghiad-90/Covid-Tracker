@@ -26,11 +26,22 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const CountryURL = url.countries;
 
+  const handleWorldRequest = async () => {
+    await fetch(url.all)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+        setCountry("WorldWide");
+        setMapCenter({ lat: 30.80746, lng: 10.4796 });
+        setMapZoom(2);
+      });
+  };
+
   const onchangeCountry = async (e) => {
     const countryCode = e.target.value;
     const url_all = url.all;
     const url_q = `${url.countryCode}/${countryCode}`;
-    const target = countryCode === "worldWide" ? url_all : url_q;
+    const target = countryCode === "WorldWide" ? url_all : url_q;
     await fetch(target)
       .then((response) => response.json())
       .then((data) => {
@@ -65,7 +76,7 @@ function App() {
         });
     };
     getdata();
-  }, []);
+  }, [CountryURL]);
 
   return (
     <div className="app">
@@ -75,31 +86,41 @@ function App() {
           onchangeCountry={onchangeCountry}
           country={country}
           countries={countries}
+          worldClick={handleWorldRequest}
         />
         <div className="app__status">
           <InfoBox
+            active={casesType === "cases"}
             title="Active"
             cases={countryInfo.todayCases}
             total={countryInfo.cases}
             color="tomato"
             icon={Cases}
-            onClick={(e) => setCasesType("cases")}
+            onClick={(e) => {
+              setCasesType("cases");
+            }}
           />
           <InfoBox
             title="Reacovery"
+            active={casesType === "recovered"}
             cases={countryInfo.todayRecovered}
             total={countryInfo.recovered}
             color="#5EC1AC"
             icon={Recovered}
-            onClick={(e) => setCasesType("recovered")}
+            onClick={(e) => {
+              setCasesType("recovered");
+            }}
           />
           <InfoBox
             title="Death"
+            active={casesType === "deaths"}
             cases={countryInfo.todayDeaths}
             total={countryInfo.deaths}
             color="#4F4E53"
             icon={Deaths}
-            onClick={(e) => setCasesType("deaths")}
+            onClick={(e) => {
+              setCasesType("deaths");
+            }}
           />
         </div>
         <Map

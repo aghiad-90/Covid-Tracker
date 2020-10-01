@@ -24,6 +24,8 @@
   height: 50px;
   width: 50px;
   margin-right: 10px;
+  border-width: 1px;
+  border-color: #282b2e;
 }
 
 .leaflet-popup {

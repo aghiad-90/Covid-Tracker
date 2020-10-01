@@ -4,7 +4,6 @@ import { Map as LeafLetMap, TileLayer } from "react-leaflet";
 import { showData } from "./../utilities/showdataonMap";
 
 function Map({ center, zoom, countries, casesType }) {
-  console.log(countries);
   return (
     <div className="map">
       <LeafLetMap zoom={zoom} center={center}>

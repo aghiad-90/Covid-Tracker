@@ -7,6 +7,12 @@
   cursor: pointer;
 }
 
+.infoBox--active {
+  border-top: 3px solid tomato;
+  padding-top: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
 .infoBox__icon {
   height: 50px;
   width: 50px;
