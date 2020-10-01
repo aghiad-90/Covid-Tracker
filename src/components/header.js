@@ -11,8 +11,8 @@ function Header({ onchangeCountry, countries, country, worldClick }) {
           <MenuItem value={country} className="drobDown">
             <div onClick={worldClick}>WorldWide</div>
           </MenuItem>
-          {countries.map((item) => (
-            <MenuItem value={item.value} key={item.country}>
+          {countries.map((item, index) => (
+            <MenuItem value={item.value} key={index}>
               {item.name}
             </MenuItem>
           ))}

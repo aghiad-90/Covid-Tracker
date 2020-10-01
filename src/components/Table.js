@@ -5,8 +5,8 @@ import numeral from "numeral";
 function Table({ countries }) {
   return (
     <div className="table">
-      {countries.map((item) => (
-        <tr key={item.countryInfo.lat}>
+      {countries.map((item, index) => (
+        <tr key={index}>
           <div
             style={{
               display: "flex",
@@ -25,9 +25,10 @@ function Table({ countries }) {
             />
             <td>{item.country}</td>
           </div>
-          <strong>
-            <td>{numeral(item.cases).format("0,0")}</td>
-          </strong>
+
+          <td style={{ fontWeight: "bold" }}>
+            {numeral(item.cases).format("0,0")}
+          </td>
         </tr>
       ))}
     </div>
